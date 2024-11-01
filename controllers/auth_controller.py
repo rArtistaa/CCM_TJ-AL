@@ -6,9 +6,10 @@ class AuthController:
     def __init__(self) -> None:
         self.__user_model = UserModel()
 
-    def authenticate(self, username, password):
-        ''' Autentica o usuário verificando o username e a senha. '''
-        user = self.__user_model.get_user_by_username(username)
+
+    def authenticate(self, email, password):
+        ''' Autentica o usuário verificando o email e a senha. '''
+        user = self.__user_model.get_user_by_email(email)
 
         if user is None:
             return False
@@ -17,7 +18,15 @@ class AuthController:
 
         return bcrypt.checkpw(password.encode('utf-8'), stored_password)
     
-    def create_new_user(self, username, password):
+
+    def email_exists(self, email):
+        return self.__user_model.email_exists(email)
+
+
+    def create_new_user(self, name, email, password):
         ''' Cria um novo usuário com a senha hasheada. '''
-        self.__user_model.create_user(username, password)
+        if self.email_exists(email):
+            return False  
+        self.__user_model.create_user(name, email, password)
         return True
+

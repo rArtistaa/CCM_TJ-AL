@@ -1,5 +1,6 @@
 import flet as ft
 from controllers.auth_controller import AuthController
+import asyncio
 
 
 class LoginView:
@@ -11,7 +12,6 @@ class LoginView:
         self.email_label = 'Email'
         self.password_label = 'Senha'
 
-
     def toggle_password_visibility(self, e):
         self.show_password = not self.show_password
         self.password_field.password = not self.show_password
@@ -20,7 +20,31 @@ class LoginView:
         )
         self.icon_button.update()  
         self.password_field.update()  
-    
+
+
+    async def handle_login(self, e):
+        email = self.email_field.value
+        password = self.password_field.value
+
+        self.error_message.visible = False
+        self.login_button.disabled = True
+        self.error_message.update()
+        self.login_button.update()
+
+        await asyncio.sleep(0.8)  
+
+        if self.controller.authenticate(email, password):
+            self.route_controller.change_route('/home')
+        else:
+            self.error_message.value = 'Email ou senha incorretos!'
+            self.password_field.value = ''
+            self.password_field.update()
+            self.error_message.visible = True
+
+        self.login_button.disabled = False
+        self.error_message.update()
+        self.login_button.update()
+
 
     def build(self):
         self.icon_button = ft.IconButton(
@@ -28,11 +52,35 @@ class LoginView:
             on_click=self.toggle_password_visibility
         )
 
+        self.email_field = ft.TextField(
+            width=340,
+            label=self.email_label,
+            border_width=0,
+        )
+
         self.password_field = ft.TextField(
             width=290,  
             label=self.password_label,
             password=True,  
             border_width=0,
+        )
+
+        self.error_message = ft.Text(
+            value='',
+            color=ft.colors.RED,
+            visible=False,  
+        )
+
+        self.login_button = ft.ElevatedButton(
+            text='Entrar',
+            bgcolor={
+                ft.ControlState.DEFAULT: '#58a45c',
+                ft.ControlState.DISABLED: '#A0C4A6'   
+            },
+            color=ft.colors.WHITE,
+            height=50,
+            width=340,
+            on_click=lambda e: asyncio.run(self.handle_login(e))  
         )
         
         return ft.Container(
@@ -47,13 +95,14 @@ class LoginView:
                             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                             controls=[
                                 ft.Container(height=50),
-                                ft.Image(src="/images/logo_museu.jpg"),
-                                ft.Container(height=30),
-                                ft.TextField(
-                                    width=340,
-                                    label=self.email_label,
-                                    border_width=0, 
+                                ft.Image(
+                                    src="/images/logo_museu.jpg",
+                                    width=300,
+                                    height=300,
+                                    fit=ft.ImageFit.CONTAIN
                                 ),
+                                ft.Container(height=30),
+                                self.email_field,
                                 ft.Container(height=20),
                                 ft.Row(
                                     controls=[
@@ -62,14 +111,9 @@ class LoginView:
                                     ],
                                     alignment=ft.MainAxisAlignment.CENTER  
                                 ),
+                                self.error_message, 
                                 ft.Container(height=30),
-                                ft.ElevatedButton(
-                                    text='Entrar',
-                                    bgcolor='#58a45c',
-                                    color=ft.colors.WHITE,
-                                    height=50,
-                                    width=340,   
-                                ),                     
+                                self.login_button,                     
                                 ft.Row(
                                     controls=[
                                         ft.Text(
