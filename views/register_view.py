@@ -5,8 +5,7 @@ import asyncio
 
 
 class RegisterView:
-    def __init__(self, route_controller) -> None:
-        self.route_controller = route_controller
+    def __init__(self) -> None:
         self.controller = AuthController()
         self.show_password = False
 
@@ -66,7 +65,7 @@ class RegisterView:
             return
         
         if self.controller.create_new_user(name, email, password):
-            await self.route_controller.change_route('/login')
+            await e.page.go('/home')
         else:
             self.error_message.value = 'Erro ao registrar. Tente novamente.'
             self.error_message.visible = True
@@ -164,7 +163,7 @@ class RegisterView:
                                                 ft.TextSpan(
                                                     'Entrar',
                                                     ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE),
-                                                    on_click=lambda e: self.route_controller.change_route('/login')
+                                                    on_click=lambda e: e.page.go('/login')
                                                 )    
                                             ]                                        
                                         )    

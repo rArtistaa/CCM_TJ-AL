@@ -4,11 +4,9 @@ import asyncio
 
 
 class LoginView:
-    def __init__(self, route_controller) -> None:
-        self.route_controller = route_controller
+    def __init__(self) -> None:
         self.controller = AuthController()
         self.show_password = False  
-
         self.email_label = 'Email'
         self.password_label = 'Senha'
 
@@ -34,7 +32,7 @@ class LoginView:
         await asyncio.sleep(0.8)  
 
         if self.controller.authenticate(email, password):
-            self.route_controller.change_route('/home')
+            e.page.go('/home')
         else:
             self.error_message.value = 'Email ou senha incorretos!'
             self.password_field.value = ''
@@ -122,7 +120,7 @@ class LoginView:
                                                 ft.TextSpan(
                                                     'Registrar',
                                                     ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE),
-                                                    on_click=lambda e: self.route_controller.change_route('/register')   
+                                                    on_click=lambda e: e.page.go('/register')   
                                                 )    
                                             ]                                        
                                         )    
