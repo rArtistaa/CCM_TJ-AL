@@ -31,8 +31,9 @@ class LoginView:
 
         await asyncio.sleep(0.8)  
 
-        if self.controller.authenticate(email, password):
-            e.page.go('/home')
+        #if self.controller.authenticate(email, password):
+        if True:
+             await e.page.go('/home')
         else:
             self.error_message.value = 'Email ou senha incorretos!'
             self.password_field.value = ''
@@ -42,7 +43,6 @@ class LoginView:
         self.login_button.disabled = False
         self.error_message.update()
         self.login_button.update()
-
 
     def build(self):
         self.icon_button = ft.IconButton(

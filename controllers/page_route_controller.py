@@ -2,7 +2,7 @@ import flet as ft
 from views.login_view import LoginView
 from views.home_view import HomeView
 from views.register_view import RegisterView
-from exceptions import RouteNotFoundError
+from utils.exceptions import RouteNotFoundError
 
 
 class PageRouteController:
@@ -26,3 +26,4 @@ class PageRouteController:
             raise RouteNotFoundError(f'Rota não encontrada: {route}')
         
         self.page.update()
+    

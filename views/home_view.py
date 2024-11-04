@@ -1,22 +1,24 @@
 import flet as ft
 
 
-
 class HomeView:
-    def __init__(self, page) -> None:
-        self.page = page
-
+    def __init__(self) -> None:
+        pass
 
     def build(self):
+        print("Construindo HomeView")  
         return ft.Container(
-            alignment=ft.alignment.center,
+            expand=True,
             gradient=ft.LinearGradient(
                 begin=ft.alignment.top_center,
                 end=ft.alignment.bottom_center,
-                colors=[ft.colors.RED, ft.colors.PURPLE],
-                tile_mode=ft.GradientTileMode.MIRROR    
+                colors=[ft.colors.RED, ft.colors.YELLOW]
             ),
-            width=150,
-            height=150,
-            border_radius=5
+            content=ft.Column(
+                alignment=ft.MainAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                controls=[
+                    ft.Text("Bem-vindo à HomeView!", color=ft.colors.WHITE, size=24)
+                ]
+            )
         )

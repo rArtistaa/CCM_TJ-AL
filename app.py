@@ -1,4 +1,5 @@
 import flet as ft
+import asyncio
 from controllers.page_route_controller import PageRouteController
 
 

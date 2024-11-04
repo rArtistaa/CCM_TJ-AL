@@ -1,4 +1,4 @@
-from config import get_connection
+from config.config import get_connection
 import sqlite3
 import bcrypt
 
