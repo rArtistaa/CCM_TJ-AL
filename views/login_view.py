@@ -33,7 +33,7 @@ class LoginView:
 
         #if self.controller.authenticate(email, password):
         if True:
-             await e.page.go('/home')
+            e.page.go('/home')
         else:
             self.error_message.value = 'Email ou senha incorretos!'
             self.password_field.value = ''
@@ -83,7 +83,7 @@ class LoginView:
         
         return ft.Container(
             expand=True,  
-            bgcolor="#081c44",
+            bgcolor="#071F49",
             content=ft.Column(
                 alignment=ft.MainAxisAlignment.CENTER,  
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER, 

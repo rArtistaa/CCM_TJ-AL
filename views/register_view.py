@@ -65,7 +65,7 @@ class RegisterView:
             return
         
         if self.controller.create_new_user(name, email, password):
-            await e.page.go('/home')
+            await e.page.go('/login')
         else:
             self.error_message.value = 'Erro ao registrar. Tente novamente.'
             self.error_message.visible = True
@@ -124,7 +124,7 @@ class RegisterView:
         
         return ft.Container(
             expand=True,  
-            bgcolor="#081c44",
+            bgcolor="#071F49",
             content=ft.Column(
                 alignment=ft.MainAxisAlignment.CENTER,  
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER, 
