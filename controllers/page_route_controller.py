@@ -2,6 +2,7 @@ import flet as ft
 from views.login_view import LoginView
 from views.home_view import HomeView
 from views.register_view import RegisterView
+from views.about_app_view import AboutAppView
 from utils.exceptions import RouteNotFoundError
 
 
@@ -11,7 +12,8 @@ class PageRouteController:
         self.routes = {
             '/login': LoginView,
             '/register': RegisterView,
-            '/home': HomeView    
+            '/home': HomeView,
+            '/aboutapp': AboutAppView ,  
         }
     
     def handle_route_change(self, route_event):
