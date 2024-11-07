@@ -68,7 +68,8 @@ class HomeView:
                                                                     style=ft.ButtonStyle(
                                                                         shape=ft.RoundedRectangleBorder(6)
                                                                     ),
-                                                                    offset=(0, 0.1)
+                                                                    offset=(0, 0.1),
+                                                                    on_click=lambda e: e.page.go('/schedule')
                                                                 ),
                                                                 ft.Text(
                                                                     value='AGENDA',
@@ -158,7 +159,8 @@ class HomeView:
                                                                     style=ft.ButtonStyle(
                                                                         shape=ft.RoundedRectangleBorder(6)
                                                                     ),
-                                                                    offset=(0, 0.1)
+                                                                    offset=(0, 0.1),
+                                                                    on_click=lambda e: e.page.go('/ccmtj')
                                                                 ),
                                                                 ft.Text(
                                                                     value='CCM TJ AL',
