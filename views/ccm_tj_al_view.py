@@ -1,6 +1,5 @@
 import flet as ft
 
-
 class CCMTJALView:
     def __init__(self) -> None:
         self.text = '''Com sabedoria, o escritor argentino Jorge Luis
@@ -35,6 +34,9 @@ olhar nos faça lembrar o quanto de humano,
 ainda, há em nós.'''
 
         self.expanded = False
+        self.current_image_index = 0
+        self.images_per_view = 8
+
 
     def expand_container(self, e):
         self.expanded = not self.expanded
@@ -44,15 +46,41 @@ ainda, há em nós.'''
         e.page.update()
 
 
+    def scroll_left(self, e):
+        if self.current_image_index > 1:
+            self.current_image_index -= 2  
+            self.update_photo_grid(e)
+            e.page.update()
+        
+
+    def scroll_right(self, e):
+        if self.current_image_index < len(self.photo_grid.controls) - self.images_per_view - 2:
+            self.current_image_index += 2 
+            self.update_photo_grid(e)
+            e.page.update()
+
+
+    def update_photo_grid(self, e):
+        for i, img in enumerate(self.photo_grid.controls):
+            img.visible = self.current_image_index <= i < self.current_image_index + self.images_per_view
+            if img.visible:
+                img.offset = ft.Offset(0, 0)  
+                img.animate_offset = ft.Animation(300, "ease") 
+            else:
+                img.offset = ft.Offset(0, -10) 
+                img.animate_offset = ft.Animation(300, "ease") 
+        e.page.update()
+
+
     def build(self):
         self.text_content = ft.Text(
             value=self.text,
-            height=278,
+            height=250,
             width=378,
             size=16,
             text_align=ft.TextAlign.LEFT,
-            top=200,
-            animate_size=ft.Animation(400, 'ease')
+            animate_size=ft.Animation(400, 'ease'),
+            top=200
         )
 
         self.image = ft.Image(
@@ -60,7 +88,7 @@ ainda, há em nós.'''
             height=104,
             width=104,
             fit=ft.ImageFit.CONTAIN,
-            top=70    
+            top=70  
         )
 
         self.read_more_text = ft.Text(
@@ -76,9 +104,9 @@ ainda, há em nós.'''
                     on_click=self.expand_container    
                 )    
             ],
-            top=520,
             offset=ft.Offset(0, -1),
-            animate_offset=ft.Animation(400, 'ease')    
+            animate_offset=ft.Animation(400, 'ease'),
+            top=530    
         )
 
         self.upper_container = ft.Container(
@@ -96,74 +124,154 @@ ainda, há em nós.'''
                 ),
                 border_radius=ft.border_radius.only(bottom_right=80, bottom_left=80)
             )
-        
-        return ft.Container(
-            expand=True,
+
+        self.photo_grid = ft.Row(      
+            controls=[
+                *[
+                    ft.Image(
+                        src=f"https://picsum.photos/150/150?{i}",
+                        fit=ft.ImageFit.COVER,
+                        border_radius=ft.border_radius.all(2),
+                        width=168,
+                        height=168   
+                    ) for i in range(16)
+                ]
+            ],
+            scroll=ft.ScrollMode.ALWAYS,  
+        )
+
+        self.video_grid = ft.Row(
+            controls=[
+                ft.Image(
+                    src=f"https://picsum.photos/150/150?{i}",
+                    fit=ft.ImageFit.COVER,
+                    border_radius=ft.border_radius.all(2)   
+                ) for i in range(16)  
+            ],
+            scroll=ft.ScrollMode.ALWAYS,  
+        )
+
+        return ft.View(
             bgcolor='#071F49',
+            scroll=ft.ScrollMode.AUTO,
             padding=0,
-            content=ft.Column(
-                alignment=ft.MainAxisAlignment.START,
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                scroll=ft.ScrollMode.AUTO,
-                controls=[
-                    ft.Row(
-                        alignment=ft.CrossAxisAlignment.START,
-                        vertical_alignment=ft.MainAxisAlignment.CENTER,
-                        controls=[
-                            ft.Stack(
-                                controls=[
-                                    self.upper_container,
-                                    ft.Container(
-                                        bgcolor='#B05198',
-                                        height=64,
-                                        width=236,
-                                        border_radius=ft.border_radius.only(bottom_right=66)
-                                    ),
-                                    ft.IconButton(
-                                        icon=ft.icons.ARROW_BACK_IOS_ROUNDED,
-                                            bgcolor='#071F49',
-                                            icon_color='#E7EBE0',
-                                            icon_size=22,
-                                            height=41,
-                                            width=41,
-                                            top=11,
-                                            left=26,
-                                            alignment=ft.alignment.center_left,
-                                            on_click=lambda e: e.page.go('/home')
-                                    ),
-                                    ft.IconButton(
-                                        icon=ft.icons.QR_CODE_SCANNER_ROUNDED,
-                                            bgcolor='#B05198',
-                                            icon_color=ft.colors.WHITE,
-                                            icon_size=38,                            
-                                            top=4,
-                                            left=90,     
-                                    ),
-                                    ft.IconButton(
-                                         icon=ft.icons.HOME_OUTLINED,
-                                            bgcolor='#B05198',
-                                            icon_color=ft.colors.WHITE,
-                                            icon_size=38,
-                                            top=4,
-                                            left=155,
-                                            on_click=lambda e: e.page.go('/home')   
-                                    )    
-                                ]    
-                            )    
-                        ]
-                    ),
-                    ft.Column(
-                        alignment=ft.MainAxisAlignment.START,
-                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                        controls=[
-                            ft.Container(height=20),
-                            ft.Text(
-                                value='FOTOS',
-                                size=18
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,  
+            controls=[
+                ft.Row(
+                    alignment=ft.CrossAxisAlignment.START,
+                    controls=[
+                        ft.Stack(
+                            controls=[
+                                self.upper_container,
+                                ft.Container(
+                                    bgcolor='#B05198',
+                                    height=64,
+                                    width=236,
+                                    border_radius=ft.border_radius.only(bottom_right=66)
+                                ),
+                                ft.IconButton(
+                                    icon=ft.icons.ARROW_BACK_IOS_ROUNDED,
+                                    bgcolor='#071F49',
+                                    icon_color='#E7EBE0',
+                                    icon_size=22,
+                                    height=41,
+                                    width=41,
+                                    on_click=lambda e: e.page.go('/home'),
+                                    top=11,
+                                    left=26
+                                ),
+                                ft.IconButton(
+                                    icon=ft.icons.QR_CODE_SCANNER_ROUNDED,
+                                    bgcolor='#B05198',
+                                    icon_color=ft.colors.WHITE,
+                                    icon_size=38,
+                                    left=90,
+                                    top=4                            
+                                ),
+                                ft.IconButton(
+                                    icon=ft.icons.HOME_OUTLINED,
+                                    bgcolor='#B05198',
+                                    icon_color=ft.colors.WHITE,
+                                    icon_size=38,
+                                    on_click=lambda e: e.page.go('/home'),
+                                    left=155,
+                                    top=4   
+                                )    
+                            ]    
+                        )    
+                    ]
+                ),
+                ft.Container(height=40),
+                ft.Text(
+                    value='FOTOS',
+                    size=18
+                ),
+                ft.Container(height=10),
+                ft.Container(
+                    content=self.photo_grid,  
+                    height=150,                
+                    width=450,                 
+                ),
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    controls=[
+                        ft.IconButton(
+                            content=ft.Image(
+                                src='/images/arrow_images.png',
+                                fit=ft.ImageFit.CONTAIN,
+                                width=60,
+                                height=60,
+                                scale=ft.Scale(scale_x=-1, scale_y=1)                        
                             ),
-                            ft.GridView()    
-                        ]    
-                    )
-                ]    
-            )    
+                            on_click=self.scroll_left                  
+                        ),
+                        ft.IconButton(
+                            content=ft.Image(
+                                src='/images/arrow_images.png',
+                                fit=ft.ImageFit.CONTAIN,
+                                width=60,
+                                height=60,                      
+                            ),
+                            on_click=self.scroll_right    
+                        )    
+                    ]    
+                ),
+                ft.Text(
+                value='VÍDEOS',
+                size=18    
+                ),
+                ft.Container(height=10),
+                ft.Container(
+                    bgcolor=ft.colors.WHITE,
+                    height=207,
+                    width=340,
+                    content=ft.IconButton(
+                        icon=ft.icons.PLAY_ARROW_ROUNDED,
+                        icon_size=30   
+                    )    
+                ),
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    controls=[
+                        ft.IconButton(
+                            content=ft.Image(
+                                src='/images/arrow_images.png',
+                                fit=ft.ImageFit.CONTAIN,
+                                width=60,
+                                height=60,
+                                scale=ft.Scale(scale_x=-1, scale_y=1)                        
+                            ),               
+                        ),
+                        ft.IconButton(
+                            content=ft.Image(
+                                src='/images/arrow_images.png',
+                                fit=ft.ImageFit.CONTAIN,
+                                width=60,
+                                height=60,                      
+                            ),
+                        )    
+                    ]    
+                ),
+                ft.Container(height=20)
+            ]    
         )

@@ -4,7 +4,6 @@ import os
 def get_connection():
     base_dir = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.join(base_dir, '..', 'data', 'database.db')  
-    print(f"Connecting to database at: {db_path}")  
     connection = sqlite3.connect(db_path)
     return connection
 

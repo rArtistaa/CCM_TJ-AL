@@ -41,7 +41,12 @@ class HomeView:
                                                             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                                             controls=[
                                                                 ft.IconButton(
-                                                                    icon=ft.icons.QR_CODE_SCANNER,
+                                                                    content=ft.Image(
+                                                                        src='/images/qrcode_icon.png',
+                                                                        fit=ft.ImageFit.CONTAIN,
+                                                                        width=60,
+                                                                        height=60,    
+                                                                    ),
                                                                     icon_size=40,
                                                                     icon_color=ft.colors.WHITE,
                                                                     style=ft.ButtonStyle(
@@ -62,7 +67,12 @@ class HomeView:
                                                             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                                             controls=[
                                                                 ft.IconButton(
-                                                                    icon=ft.icons.CALENDAR_TODAY_OUTLINED,
+                                                                    content=ft.Image(
+                                                                        src='/images/agenda_icon.png',
+                                                                        fit=ft.ImageFit.CONTAIN,
+                                                                        width=60,
+                                                                        height=60    
+                                                                    ),
                                                                     icon_size=40,
                                                                     icon_color=ft.colors.WHITE,
                                                                     style=ft.ButtonStyle(
@@ -84,7 +94,12 @@ class HomeView:
                                                             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                                             controls=[
                                                                 ft.IconButton(
-                                                                    icon=ft.icons.ACCESSIBILITY_NEW_SHARP,
+                                                                    content=ft.Image(
+                                                                        src='/images/accessibility_icon.png',
+                                                                        fit=ft.ImageFit.CONTAIN,
+                                                                        width=60,
+                                                                        height=60    
+                                                                    ),
                                                                     icon_size=40,
                                                                     icon_color=ft.colors.WHITE,
                                                                     style=ft.ButtonStyle(
@@ -111,7 +126,12 @@ class HomeView:
                                                             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                                             controls=[
                                                                 ft.IconButton(
-                                                                    icon=ft.icons.PHONE_IPHONE_ROUNDED,
+                                                                    content=ft.Image(
+                                                                        src='/images/selfie_icon.png',
+                                                                        fit=ft.ImageFit.CONTAIN,
+                                                                        width=60,
+                                                                        height=60    
+                                                                    ),
                                                                     icon_size=40,
                                                                     icon_color=ft.colors.WHITE,
                                                                     style=ft.ButtonStyle(
@@ -132,7 +152,12 @@ class HomeView:
                                                             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                                             controls=[
                                                                 ft.IconButton(
-                                                                    icon=ft.icons.HOUSE_OUTLINED,
+                                                                    content=ft.Image(
+                                                                        src='/images/home_icon.png',
+                                                                        fit=ft.ImageFit.CONTAIN,
+                                                                        width=60,
+                                                                        height=60    
+                                                                    ),
                                                                     icon_size=40,
                                                                     icon_color=ft.colors.WHITE,
                                                                     style=ft.ButtonStyle(
@@ -153,7 +178,12 @@ class HomeView:
                                                             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                                             controls=[
                                                                 ft.IconButton(
-                                                                    icon=ft.icons.MUSEUM_OUTLINED,
+                                                                    content=ft.Image(
+                                                                        src='/images/ccmtj_icon.png',
+                                                                        fit=ft.ImageFit.CONTAIN,
+                                                                        width=60,
+                                                                        height=60    
+                                                                    ),
                                                                     icon_size=40,
                                                                     icon_color=ft.colors.WHITE,
                                                                     style=ft.ButtonStyle(
@@ -179,7 +209,7 @@ class HomeView:
                             ]
                         ),
                     ),
-                    ft.Container(height=180),
+                    ft.Container(height=120),
                     ft.Column(
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         spacing=0,
