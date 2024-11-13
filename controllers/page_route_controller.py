@@ -5,6 +5,7 @@ from views.register_view import RegisterView
 from views.about_app_view import AboutAppView
 from views.schedule_view import ScheduleView
 from views.ccm_tj_al_view import CCMTJALView
+from views.qrcode_scan_view import QrCodeScan
 from utils.exceptions import RouteNotFoundError
 
 
@@ -17,7 +18,8 @@ class PageRouteController:
             '/home': HomeView,
             '/aboutapp': AboutAppView,
             '/schedule': ScheduleView,
-            '/ccmtj': CCMTJALView 
+            '/ccmtj': CCMTJALView,
+            '/qrcode': QrCodeScan
         }
     
     def handle_route_change(self, route_event):

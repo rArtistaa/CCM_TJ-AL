@@ -52,7 +52,8 @@ class HomeView:
                                                                     style=ft.ButtonStyle(
                                                                         shape=ft.RoundedRectangleBorder(6)
                                                                     ),
-                                                                    offset=(0, 0.1)
+                                                                    offset=(0, 0.1),
+                                                                    on_click=lambda e: e.page.go('/qrcode')
                                                                 ),
                                                                 ft.Text(
                                                                     value='LER QRCODE',

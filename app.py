@@ -9,7 +9,7 @@ def main(page: ft.Page):
 
     route_controller = PageRouteController(page)
     page.on_route_change = route_controller.handle_route_change
-    page.go('/home')
+    page.go('/qrcode')
 
 if __name__ == '__main__':
     ft.app(target=main, view=ft.AppView.WEB_BROWSER, assets_dir='assets')

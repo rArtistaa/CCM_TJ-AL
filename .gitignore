@@ -1,4 +1,4 @@
-/data/
+data/
 __pycache__/
 *.pyc
 venv/
@@ -10,3 +10,4 @@ env/
 *.swp
 *.log
 /tests/__pycache__/
+assets/
