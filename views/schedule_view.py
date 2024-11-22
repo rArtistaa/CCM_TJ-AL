@@ -1,92 +1,84 @@
 import flet as ft
+from utils.navigation_bar import create_navigation_bar
 
 
 class ScheduleView:
     def __init__(self) -> None:
-        pass
+        self.selected_month = ft.Ref[ft.Text]()
+        self.dropdown_ref = ft.Ref[ft.Dropdown]()  
+        self.months = [
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+        ]
+
+
+    def on_select(self, e):
+        selected_month = e.control.value
+        self.selected_month.current.value = f'Mês selecionado: {selected_month}'
+        self.dropdown_ref.current.label = ''
+        e.page.update()
 
 
     def build(self):
-        return ft.Container(
-            expand=True,
-            bgcolor='#071F49',
+        dropdown = ft.Dropdown(
+            ref=self.dropdown_ref,
+            label="Selecione um mês", 
+            options=[
+                ft.dropdown.Option(month) for month in self.months
+            ],
+            on_change=self.on_select,
+            width=274,
+            bgcolor=ft.colors.WHITE,
+            max_menu_height=212,
+            text_style=ft.TextStyle(
+                color='#071F49',
+                font_family='FuturaPTBold',
+                size=20 
+            ),
+            border_color='#707070',
+            label_style=ft.TextStyle(
+                color='#071F49',
+                font_family='FuturaPTBold',
+                size=20    
+            )
+        )
+
+        return ft.View(
+            bgcolor="#071F49",
             padding=0,
-            content=ft.Column(
-                alignment=ft.MainAxisAlignment.START,
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                controls=[
-                    ft.Row(
-                        alignment=ft.CrossAxisAlignment.START,
-                        vertical_alignment=ft.MainAxisAlignment.CENTER,
-                        controls=[
-                            ft.Stack(
-                                controls=[
-                                    ft.Container(
-                                        bgcolor='#69AABC',
-                                        height=64,
-                                        width=236,
-                                        border_radius=ft.border_radius.only(bottom_right=66)
-                                    ),
-                                    ft.IconButton(
-                                        icon=ft.icons.ARROW_BACK_IOS_ROUNDED,
-                                            bgcolor='#071F49',
-                                            icon_color='#E7EBE0',
-                                            icon_size=22,
-                                            height=41,
-                                            width=41,
-                                            top=11,
-                                            left=26,
-                                            alignment=ft.alignment.center_left,
-                                            on_click=lambda e: e.page.go('/home')
-                                    ),
-                                    ft.IconButton(
-                                        icon=ft.icons.QR_CODE_SCANNER_ROUNDED,
-                                            bgcolor='#69AABC',
-                                            icon_color=ft.colors.WHITE,
-                                            icon_size=38,                            
-                                            top=4,
-                                            left=90,     
-                                    ),
-                                    ft.IconButton(
-                                         icon=ft.icons.HOME_OUTLINED,
-                                            bgcolor='#69AABC',
-                                            icon_color=ft.colors.WHITE,
-                                            icon_size=38,
-                                            top=4,
-                                            left=155,
-                                            on_click=lambda e: e.page.go('/home')   
-                                    )    
-                                ]    
-                            )    
-                        ]
-                    ),
-                    ft.Column(
-                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                        spacing=30,
-                        scroll=ft.ScrollMode.AUTO,
-                        controls=[
-                            ft.Image(
-                                src='/images/appccmtj_image.jpg',
-                                height=104,
-                                width=104,
-                                fit=ft.ImageFit.CONTAIN    
-                            ),
-                            ft.ElevatedButton(
-                                icon=ft.icons.CALENDAR_TODAY_OUTLINED,
-                                text='   AGENDA',
-                                bgcolor='#69AABC',
-                                color=ft.colors.WHITE,
-                                height=58,
-                                width=223,
-                                style=ft.ButtonStyle(
-                                    icon_size=37,
-                                    text_style=ft.TextStyle(
-                                        size=18    
-                                    )
-                                )
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            controls=[
+                *create_navigation_bar(
+                    on_back_click=lambda e: e.page.go('/home'),
+                    color='#69AABC'
+                ),
+                ft.Container(),
+                ft.Column(
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    spacing=30,
+                    scroll=ft.ScrollMode.AUTO,
+                    controls=[
+                        ft.Image(
+                            src='/images/appccmtj_logo.png',
+                            height=104,
+                            width=104,
+                            fit=ft.ImageFit.CONTAIN
+                        ),
+                        ft.ElevatedButton(
+                            icon=ft.icons.CALENDAR_TODAY_OUTLINED,
+                            text='   AGENDA',
+                            bgcolor="#69AABC",
+                            color=ft.colors.WHITE,
+                            height=58,
+                            width=223,
+                            style=ft.ButtonStyle(
+                                icon_size=37,
+                                text_style=ft.TextStyle(size=18)
                             )
-                        ]    
-                    )    
-                ]    
-            )    
+                        ),
+                        dropdown,
+                        ft.Text(ref=self.selected_month, color='#071F49'),
+                    ]
+                )
+            ]
         )

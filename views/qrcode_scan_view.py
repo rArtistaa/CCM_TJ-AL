@@ -9,7 +9,7 @@ class QrCodeScan:
     def build(self):
         return ft.Container(
             expand=True,
-            bgcolor='#071F49', 
+            bgcolor='#071F49',
             content=ft.Column(
                 alignment=ft.MainAxisAlignment.START,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -30,7 +30,7 @@ class QrCodeScan:
                         margin=ft.margin.only(top=-25), 
                         alignment=ft.alignment.center,
                         content=ft.Image(
-                            src='/images/appccmtj_image.jpg',
+                            src='/images/appccmtj_logo.png',
                             width=110,
                             height=110,
                             fit=ft.ImageFit.CONTAIN,
@@ -48,15 +48,12 @@ class QrCodeScan:
                         height=81,
                         alignment=ft.alignment.center,
                         margin=ft.margin.only(top=-40),  
-                        content=ft.Container(
-                            width=81,
-                            height=81,
-                            alignment=ft.alignment.center,
-                            bgcolor=ft.colors.WHITE, 
-                            border_radius=ft.border_radius.all(40.5),  
-                            border=ft.border.all(16, '#57A45D'),  
-                            on_click=lambda e: print("Botão clicado!"),
-                            clip_behavior=ft.ClipBehavior.ANTI_ALIAS
+                        content=ft.IconButton(
+                            content=ft.Image(
+                                src='/images/open_camera_icon.png',
+                                width=71,
+                                height=71    
+                            )    
                         ),
                     ),
                 ]

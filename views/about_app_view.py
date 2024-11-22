@@ -1,4 +1,5 @@
 import flet as ft
+from utils.navigation_bar import create_navigation_bar
 
 
 class AboutAppView:
@@ -25,100 +26,35 @@ Maquete: Fernando Pedroza'''
 
     
     def build(self):
-        return ft.Container(
-            expand=True,
+        return ft.View(
             bgcolor='#071F49',
+            scroll=ft.ScrollMode.AUTO,
             padding=0,
-            content=ft.Column(
-                alignment=ft.MainAxisAlignment.START,
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                controls=[
-                    ft.Row(
-                        alignment=ft.CrossAxisAlignment.START,
-                        vertical_alignment=ft.MainAxisAlignment.CENTER,
-                        controls=[
-                            ft.Stack(
-                                controls=[
-                                    ft.Container(
-                                        bgcolor='#0E428E',
-                                        height=64,
-                                        width=236,
-                                        border_radius=ft.border_radius.only(bottom_right=66)
-                                    ),
-                                    ft.IconButton(
-                                        icon=ft.icons.ARROW_BACK_IOS_ROUNDED,
-                                            bgcolor='#071F49',
-                                            icon_color='#E7EBE0',
-                                            icon_size=22,
-                                            height=41,
-                                            width=41,
-                                            top=11,
-                                            left=26,
-                                            alignment=ft.alignment.center_left,
-                                            on_click=lambda e: e.page.go('/home')
-                                    ),
-                                    ft.IconButton(
-                                        icon=ft.icons.QR_CODE_SCANNER_ROUNDED,
-                                            bgcolor='#0E428E',
-                                            icon_color=ft.colors.WHITE,
-                                            icon_size=38,                            
-                                            top=4,
-                                            left=90,     
-                                    ),
-                                    ft.IconButton(
-                                         icon=ft.icons.HOME_OUTLINED,
-                                            bgcolor='#0E428E',
-                                            icon_color=ft.colors.WHITE,
-                                            icon_size=38,
-                                            top=4,
-                                            left=155,
-                                            on_click=lambda e: e.page.go('/home')   
-                                    )    
-                                ]    
-                            )    
-                        ]
-                    ),
-                    ft.Column(
-                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                        spacing=30,
-                        scroll=ft.ScrollMode.AUTO,
-                        controls=[
-                            ft.Image(
-                                src='/images/appccmtj_image.jpg',
-                                height=104,
-                                width=104,
-                                fit=ft.ImageFit.CONTAIN    
-                            ),
-                            ft.Column(
-                                height=380,
-                                width=320,
-                                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                                scroll=ft.ScrollMode.ADAPTIVE,
-                                controls=[
-                                    ft.Text(
-                                        value=self.about_text,
-                                        height=530,
-                                        width=336,
-                                        style=ft.TextStyle(
-                                            size=17,
-                                            weight='bold',  
-                                        ),
-                                        text_align=ft.TextAlign.CENTER
-                                    )    
-                                ]    
-                            ),
-                            ft.Container(height=10),
-                            ft.Text(
-                                value='© 2024 APP DESENVOLVIDO POR NÚCLEO ZERO',
-                                size=15    
-                            ),
-                            ft.Text(
-                                value='VERSÃO 0.1',
-                                size=15 ,
-                                weight=ft.FontWeight.W_100  
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            controls=[
+                *create_navigation_bar(
+                    on_back_click=lambda e: e.page.go('/home'),
+                    color='#0E428E'    
+                ),
+                ft.Column(
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    spacing=40,
+                    controls=[
+                        ft.Image(
+                            src='/images/appccmtj_logo.png',
+                            fit=ft.ImageFit.CONTAIN,
+                            width=104,
+                            height=104    
+                        ),
+                        ft.Text(
+                            value='PATROCÍNIO',
+                            style=ft.TextStyle(
+                                weight=ft.FontWeight.BOLD,
+                                size=17,
+                                color=ft.colors.WHITE    
                             )
-                        ]    
-                    ) 
-                ]    
-            )
+                        )    
+                    ]    
+                )  
+            ]    
         )

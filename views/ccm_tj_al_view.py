@@ -1,4 +1,6 @@
 import flet as ft
+from utils.navigation_bar import create_navigation_bar
+
 
 class CCMTJALView:
     def __init__(self) -> None:
@@ -163,40 +165,10 @@ ainda, há em nós.'''
                         ft.Stack(
                             controls=[
                                 self.upper_container,
-                                ft.Container(
-                                    bgcolor='#B05198',
-                                    height=64,
-                                    width=236,
-                                    border_radius=ft.border_radius.only(bottom_right=66)
-                                ),
-                                ft.IconButton(
-                                    icon=ft.icons.ARROW_BACK_IOS_ROUNDED,
-                                    bgcolor='#071F49',
-                                    icon_color='#E7EBE0',
-                                    icon_size=22,
-                                    height=41,
-                                    width=41,
-                                    on_click=lambda e: e.page.go('/home'),
-                                    top=11,
-                                    left=26
-                                ),
-                                ft.IconButton(
-                                    icon=ft.icons.QR_CODE_SCANNER_ROUNDED,
-                                    bgcolor='#B05198',
-                                    icon_color=ft.colors.WHITE,
-                                    icon_size=38,
-                                    left=90,
-                                    top=4                            
-                                ),
-                                ft.IconButton(
-                                    icon=ft.icons.HOME_OUTLINED,
-                                    bgcolor='#B05198',
-                                    icon_color=ft.colors.WHITE,
-                                    icon_size=38,
-                                    on_click=lambda e: e.page.go('/home'),
-                                    left=155,
-                                    top=4   
-                                )    
+                                *create_navigation_bar(
+                                    on_back_click=lambda e: e.page.go('/home'),
+                                    color='#B05198'    
+                                ),    
                             ]    
                         )    
                     ]
