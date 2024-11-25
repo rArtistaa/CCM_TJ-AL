@@ -44,6 +44,7 @@ ainda, há em nós.'''
         self.expanded = not self.expanded
         self.upper_container.height = 700 if self.expanded else 577
         self.text_content.height = 410 if self.expanded else 278
+        self.text1.height = 410 if self.expanded else 278
         self.read_more_text.offset = ft.Offset(0, 6 if self.expanded else -1)
         e.page.update()
 
@@ -75,18 +76,25 @@ ainda, há em nós.'''
 
 
     def build(self):
-        self.text_content = ft.Text(
+        self.text1 = ft.Text(
             value=self.text,
-            height=250,
             width=378,
+            height=278,
             size=16,
             text_align=ft.TextAlign.LEFT,
             animate_size=ft.Animation(400, 'ease'),
-            top=200
+        )
+
+        self.text_content = ft.Column(
+            controls=[
+                self.text1
+            ],
+            scroll=ft.ScrollMode.AUTO,
+            top=200   
         )
 
         self.image = ft.Image(
-            src='/images/appccmtj_image2.jpg',
+            src='/images/appccmtj_logo.png',
             height=104,
             width=104,
             fit=ft.ImageFit.CONTAIN,

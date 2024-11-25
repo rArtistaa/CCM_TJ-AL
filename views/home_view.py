@@ -202,7 +202,8 @@ class HomeView:
                                                                                 )
                                                                             ),
                                                                             offset=(0, 0.1),
-                                                                            padding=0
+                                                                            padding=0,
+                                                                            on_click=lambda e: e.page.go('/take')
                                                                         ),
                                                                         ft.Text(
                                                                             value="LEVE PARA CASA",
@@ -281,6 +282,7 @@ class HomeView:
                                     ),
                                 ],
                             ),
+                            ft.Container(height=80)
                         ],
                     )
                 ),

@@ -8,13 +8,16 @@ def main(page: ft.Page):
 
     page.fonts = {
         'FuturaPTMedium': 'fonts/FuturaPTMedium.otf',
-        'FuturaPTBold': 'fonts/FuturaPTBold.otf'    
+        'FuturaPTBold': 'fonts/FuturaPTBold.otf',
+        'FuturaPTDemi': 'fonts/FuturaPTDemi.otf',
+        'FuturaPTLight': 'fonts/FuturaPTLight.otf',
+        'FuturaPTBook': 'fonts/FuturaPTBook.otf'     
     }
     
 
     route_controller = PageRouteController(page)
     page.on_route_change = route_controller.handle_route_change
-    page.go('/schedule')
+    page.go('/take')
 
 if __name__ == '__main__':
     ft.app(target=main, view=ft.AppView.WEB_BROWSER, assets_dir='assets')
